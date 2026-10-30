@@ -77,7 +77,17 @@ Developer updates src/index.html
 - [GitHub Actions run #2 — successful automated deployment](https://github.com/visiondani8-crypto/azure-website-project-03/actions/runs/41139605946)
 - [Full GitHub Actions deployment history](https://github.com/visiondani8-crypto/azure-website-project-03/actions)
 
-The screenshots of the Azure resource overview, successful deployment and updated website are kept as separate portfolio evidence files. No subscription IDs, tokens or private keys should be committed to this repository.
+### Screenshots (downloadable evidence pack)
+
+[**Download the Project 03 evidence ZIP**](./project03_evidence.zip). The ZIP contains:
+
+- `azure_resource_overview.png` — shows the Azure Static Web App, Free plan and Ready status.
+- `github_actions_success.png` — shows the successful CI/CD workflow run.
+- `live_site_updated.png` — shows the deployed portfolio homepage.
+
+> To display these screenshots **inline** in this README, extract the ZIP and commit its three PNG files into an `evidence/` directory. Then replace this section with Markdown image links to those files.
+
+No subscription IDs, tokens or private keys should be committed to this repository.
 
 ## Repository structure
 
