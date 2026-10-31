@@ -1,0 +1,47 @@
+
+name: Azure Website Health Check
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - name: Test Azure website
+        run: |
+          set -euo pipefail
+
+          URL="https://polite-smoke-0e690c510.5.azurestaticapps.net"
+
+          RESULT=$(curl -L -sS \
+            --connect-timeout 5 \
+            --max-time 20 \
+            --retry 2 \
+            -o /tmp/homepage.html \
+            -w "%{http_code} %{time_total}" \
+            "$URL")
+
+          read -r STATUS TIME <<< "$RESULT"
+
+          echo "HTTP Status: $STATUS"
+          echo "Response Time: ${TIME}s"
+
+          if [ "$STATUS" != "200" ]; then
+            echo "::error::Website HTTP check failed"
+            exit 1
+          fi
+
+          if ! grep -Fq "Azure Cloud Portfolio" /tmp/homepage.html; then
+            echo "::error::Expected homepage content missing"
+            exit 1
+          fi
+
+          echo "Website health check PASSED"
