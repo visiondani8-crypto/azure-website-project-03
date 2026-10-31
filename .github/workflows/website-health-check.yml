@@ -1,8 +1,15 @@
 
+
 name: Azure Website Health Check
 
 on:
   workflow_dispatch:
+    inputs:
+      simulate_failure:
+        description: "Simulate a monitoring failure"
+        required: false
+        type: boolean
+        default: false
   schedule:
     - cron: '17 */6 * * *'
 
@@ -15,7 +22,9 @@ jobs:
     timeout-minutes: 3
 
     steps:
-      - name: Test Azure website
+      - name: Check Azure website
+        env:
+          SIMULATE_FAILURE: ${{ inputs.simulate_failure || 'false' }}
         run: |
           set -euo pipefail
 
@@ -35,12 +44,19 @@ jobs:
           echo "Response Time: ${TIME}s"
 
           if [ "$STATUS" != "200" ]; then
-            echo "::error::Website HTTP check failed"
+            echo "::error::HTTP health check failed"
             exit 1
           fi
 
-          if ! grep -Fq "Azure Cloud Portfolio" /tmp/homepage.html; then
-            echo "::error::Expected homepage content missing"
+          EXPECTED="Azure Cloud Portfolio"
+
+          if [ "$SIMULATE_FAILURE" = "true" ]; then
+            echo "Running controlled failure simulation"
+            EXPECTED="__simulated_missing_content__"
+          fi
+
+          if ! grep -Fq "$EXPECTED" /tmp/homepage.html; then
+            echo "::error::Homepage content check failed"
             exit 1
           fi
 
