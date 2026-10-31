@@ -108,6 +108,19 @@ readme.md              # Project documentation
 
 > **Security note:** Deployment tokens and credentials belong in secured platform secrets, never in source code, screenshots or documentation.
 
+## Project 04 — Website Health Monitoring & Incident Response
+
+After deploying the website, I extended the same Azure and GitHub environment with monitoring and a controlled incident-response exercise.
+
+- Built a [GitHub Actions health-check workflow](.github/workflows/website-health-check.yml) for HTTP status and homepage content checks.
+- Configured manual invocation and a six-hourly schedule (scheduled execution not yet verified).
+- Confirmed a manual `curl` HTTP 200 result (0.295582 seconds).
+- Deliberately triggered a failing content check without interrupting the website; inspected the alert and workflow logs.
+- Verified GitHub Inbox notifications and restored normal monitoring. The [final health check #5 passed](https://github.com/visiondani8-crypto/azure-website-project-03/actions/runs/41209550079).
+- Investigated a real Azure Policy denial for West Europe and documented the subsequent permitted-region deployment.
+
+**[Read Project 04 technical case study →](docs/project-04-monitoring.md)** · **[Read incident report →](docs/incident-report.md)**
+
 ## CV-ready description
 
 **Azure Static Website Deployment (Personal Project)** — Deployed a static website to Azure Static Web Apps and connected GitHub Actions for automatic deployment. Validated live changes after repository commits and troubleshot an Azure regional provisioning restriction.
