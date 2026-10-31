@@ -35,6 +35,7 @@ A new workflow run was manually triggered with failure simulation disabled.
 - Recovery verification: [Health Check #3](https://github.com/visiondani8-crypto/azure-website-project-03/actions/runs/41208079533)
 - Workflow result: Success
 - Total run duration: 7 seconds
+- Final independent verification: [Health Check #5](https://github.com/visiondani8-crypto/azure-website-project-03/actions/runs/41209550079) — Success, HTTP 200, response time 0.101846 seconds
 
 ## 5. Lessons Learned
 
@@ -47,7 +48,6 @@ A new workflow run was manually triggered with failure simulation disabled.
 ## 6. Follow-up Actions
 
 - Verify scheduled monitoring executions.
-- Configure failure notifications.
+- Verify GitHub Inbox notifications for intentionally failed monitoring checks (observed for Run #4); email notifications were not configured.
 - Document monitoring evidence in GitHub.
-- Review the limitations of periodic checks and possible false alarms.
 - Review the limitations of periodic checks and possible false alarms.
