@@ -81,9 +81,11 @@ Avoid publishing complete Azure Activity Log JSON or token/claim payloads. Those
 
 ## Screenshots and evidence
 
-Use links above for independently verifiable GitHub workflow outcomes. A separate redacted/cropped evidence pack can be added to an `evidence/project-04/` folder; only display screenshots after PNGs have actually been uploaded.
+**[Download the Project 4 screenshot evidence pack](../project04_evidence.zip)** — the ZIP archive was uploaded to this repository and contains the selected cropped/annotated monitoring screenshots. The GitHub Actions run links above also provide independently verifiable proof.
 
-Recommended evidence (avoid browser tabs and personal details):
+The screenshots currently live inside the ZIP. To make them viewable directly in this case study, extract the archive, upload the individual PNGs to `evidence/project-04/`, and then add Markdown image links. Do not embed image links until the actual PNG paths exist.
+
+Included evidence (avoid browser tabs and personal details when adding future screenshots):
 1. Azure Activity Log showing successful and denied management events.
 2. Terminal HTTP 200 and measured response time.
 3. Failed simulated health check showing `Homepage content check failed`.
