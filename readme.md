@@ -121,6 +121,21 @@ After deploying the website, I extended the same Azure and GitHub environment wi
 
 **[Read Project 04 technical case study →](docs/project-04-monitoring.md)** · **[Read incident report →](docs/incident-report.md)**
 
+## Project 05 — Azure IAM & RBAC Least-Privilege Security Lab
+
+Extended the existing Azure Static Web App environment with an **intermediate-level identity and access management lab** using Azure CLI and Microsoft Entra ID.
+
+- Audited inherited subscription-scope `Owner` assignments and determined two returned entries referenced one principal identity.
+- Inspected the built-in `Monitoring Reader` role's actual permissions rather than relying on its name.
+- Created an isolated test service principal and scoped `Monitoring Reader` access to the **individual Static Web App**.
+- Verified an authorised read of the website using independent service-principal authentication.
+- Verified the same identity was **denied** an out-of-scope read of the parent resource group.
+- Revoked the temporary client secret and verified the RBAC assignment, test identities and isolated login cache were removed.
+
+**[Read Project 05 IAM & RBAC Security Assessment →](docs/project-05-iam-rbac.md)**
+
+> This was an isolated personal cloud security exercise. All temporary test access has been cleaned up; the existing website and Owner permissions were not intentionally altered.
+
 ## CV-ready description
 
 **Azure Static Website Deployment (Personal Project)** — Deployed a static website to Azure Static Web Apps and connected GitHub Actions for automatic deployment. Validated live changes after repository commits and troubleshot an Azure regional provisioning restriction.
