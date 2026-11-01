@@ -166,7 +166,7 @@ This published `main.bicep` is the **final version**, so on a fresh lab its firs
 7. `p05-idempotency-check` deployment succeeded.
 8. Final `what-if`: `Resource changes: 3 no change.`
 
-**Screenshots are not yet published to GitHub.** Any future screenshots should be cropped and redacted before publication to remove account email, subscription/tenant IDs, access tokens and other private data.
+**Screenshot publication status:** Eight cropped screenshots have been prepared as a redacted evidence archive. The images have **not yet been committed**. To import them, upload `evidence-upload.zip` to this `projects/project-05-iac/` directory using GitHub's **Add file → Upload files**. The repository's [one-time evidence-import workflow](../../.github/workflows/import-project05-evidence.yml) checks the archive and commits the eight PNGs to `evidence/`. When the workflow has succeeded, the screenshots can be linked inline here. The source screenshots' browser headers and subscription ID lines were excluded.
 
 ## Cleanup — pending
 
