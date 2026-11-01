@@ -63,7 +63,7 @@ The [actual uploaded Bicep source](projects/project-05-iac/main.bicep) defines a
 
 The template was compiled and deployed using Azure CLI, modified after Azure What-If identified potentially unintended network policy changes, and validated by a successful repeated deployment. The final What-If reported **three resources unchanged**. This is a configuration and deployment test, **not a live network traffic test**.
 
-The source, case study and **eight cropped GitHub evidence screenshots** are published. [View the evidence](projects/project-05-iac/evidence/). **Deletion of the temporary Azure lab resources remains pending**. Project 5 was built in a separate isolated Azure resource group `rg-project05-iac`.
+The Bicep source, case study and **eight cropped GitHub evidence screenshots** are published. [View the evidence](projects/project-05-iac/evidence/). **Project 5 cleanup was verified on 1 November 2026:** after checking the expected resource inventory and lab tags, the isolated resource group `rg-project05-iac` was deleted, and a separate `az group exists` returned `false`. [Read the complete cleanup record](projects/project-05-iac/README.md#safe-resource-cleanup--verified).
 
 ## Historical technical identifiers
 
