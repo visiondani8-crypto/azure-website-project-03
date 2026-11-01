@@ -1,7 +1,7 @@
 # Project 5 - Azure Infrastructure as Code & Network Security Automation
 
 **Intermediate cloud engineering lab | Microsoft Azure | Bicep | Azure CLI**  
-**Status:** Network deployment, security update, and repeat-deployment verification completed on 1 November 2026. **Lab resources have not yet been cleaned up.**
+**Status:** Network deployment, security update, repeat-deployment verification, source-code publication and eight evidence screenshots completed on 1 November 2026. **Lab resources have not yet been cleaned up.**
 
 ## Project overview
 
@@ -154,19 +154,59 @@ This published `main.bicep` is the **final version**, so on a fresh lab its firs
 
 ## Evidence and source integrity
 
-**Actual code:** [`main.bicep`](main.bicep). Uploaded from the Cloud Shell working directory after final validation.
+**Source code:** [`main.bicep`](main.bicep) — the actual Azure Bicep template supplied after the final successful compilation.
 
-**Observed proof:** The interactive lab screenshots showed:
-1. Successful Bicep compilation.
-2. Three resources created by initial What-If, then a successful initial deployment.
-3. VNet/subnet range and subnet NSG association.
-4. Default security rule audit.
-5. Initial unintended What-If changes and subsequent correction.
-6. `DenyInternetOutbound` rule verified in Azure (`Succeeded`).
-7. `p05-idempotency-check` deployment succeeded.
-8. Final `what-if`: `Resource changes: 3 no change.`
+**Verified screenshot evidence:** All eight screenshots were captured from the interactive lab, cropped to remove browser account details and subscription-ID lines, and committed individually to the [Project 5 evidence directory](evidence/). The images are embedded directly below, so employers can inspect the practical deployment results without downloading an archive. The [original redacted ZIP](project5_evidence_redacted.zip) is also retained.
 
-**Screenshot publication status:** Eight cropped screenshots have been prepared as a redacted evidence archive. The images have **not yet been committed**. To import them, upload `evidence-upload.zip` to this `projects/project-05-iac/` directory using GitHub's **Add file → Upload files**. The repository's [one-time evidence-import workflow](../../.github/workflows/import-project05-evidence.yml) checks the archive and commits the eight PNGs to `evidence/`. When the workflow has succeeded, the screenshots can be linked inline here. The source screenshots' browser headers and subscription ID lines were excluded.
+### 1. Initial What-If — three resources planned
+
+Azure What-If predicted creation of a VNet, subnet and NSG before the initial deployment.
+
+![Azure What-If displaying three proposed new networking resources](evidence/01_initial_whatif_3_create.png)
+
+### 2. Initial deployment succeeded
+
+Azure CLI reported the first `p05-network-deploy` deployment as `Succeeded`.
+
+![Initial Azure Bicep network infrastructure deployment succeeded](evidence/02_initial_deployment_success.png)
+
+### 3. Verify deployed VNet, subnet and NSG
+
+The deployed VNet uses `10.50.0.0/16`, the subnet uses `10.50.1.0/24`, and the intended NSG is attached.
+
+![Azure CLI network resource and subnet NSG association verification](evidence/03_network_subnet_nsg_validation.png)
+
+### 4. Review and correct unintended What-If changes
+
+After adding an outbound deny rule, the initial detailed What-If also predicted network-policy property changes. The Bicep source was corrected, and the next preview reported the **NSG to modify and VNet/subnet unchanged**.
+
+![Corrected Azure What-If showing only the intended NSG modification](evidence/04_whatif_policy_correction.png)
+
+### 5. Verify custom security rule in Azure
+
+The deployed `DenyInternetOutbound` rule has priority `200`, direction `Outbound`, destination `Internet`, action `Deny` and state `Succeeded`.
+
+![Azure CLI output verifying the DenyInternetOutbound NSG rule](evidence/05_security_rule_verified.png)
+
+### 6. Repeat deployment succeeded
+
+The repeat `p05-idempotency-check` Azure deployment completed successfully.
+
+![Successful repeat Azure Bicep deployment for idempotency validation](evidence/06_repeat_deployment_success.png)
+
+### 7. Final What-If — no changes
+
+A final full-payload What-If after redeployment showed **`Resource changes: 3 no change`**. This demonstrates the intended steady state in Azure at the time of validation.
+
+![Final Azure What-If showing three unchanged resources](evidence/07_final_whatif_no_changes.png)
+
+### 8. Actual Bicep source compiles
+
+The final `main.bicep` file was present and compiled successfully using the Azure Bicep CLI.
+
+![Azure Cloud Shell successful final Bicep source compilation](evidence/08_bicep_source_validation.png)
+
+**Evidence limitations:** Screenshots show the CLI and What-If results, not a packet-level traffic test or continuous drift monitoring. The custom NSG rule was not tested against a live workload. No credentials, tokens or subscription identifiers are intentionally published in these cropped evidence screenshots.
 
 ## Cleanup — pending
 
@@ -196,4 +236,4 @@ Azure Bicep · Infrastructure as Code · Azure CLI · Azure Resource Manager · 
 
 ---
 
-*Status: core deployment and idempotency lab completed. Evidence publication and Azure resource cleanup remain separate follow-up steps.*
+*Status: core lab, GitHub source publication and screenshot evidence completed. Temporary Azure resource-group cleanup remains outstanding.*
