@@ -3,7 +3,8 @@ name: Import Project 5 IaC evidence screenshots
 on:
   push:
     paths:
-      - 'projects/project-05-iac/evidence-upload.zip'
+      - 'projects/project-05-iac/project5_evidence_redacted.zip'
+      - '.github/workflows/import-project05-evidence.yml'
 
 permissions:
   contents: write
@@ -22,7 +23,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          archive="projects/project-05-iac/evidence-upload.zip"
+          archive="projects/project-05-iac/project5_evidence_redacted.zip"
           target="projects/project-05-iac/evidence"
           test -s "$archive"
           mkdir -p "$target"
