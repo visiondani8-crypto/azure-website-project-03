@@ -47,6 +47,9 @@ Azure Activity Log (management plane) -> policy denial analysis
 | Normal check after simulation | [Run #3](https://github.com/visiondani8-crypto/azure-website-project-03/actions/runs/41208079533) | Success |
 | Notification test | [Run #4](https://github.com/visiondani8-crypto/azure-website-project-03/actions/runs/41208814640), GitHub Inbox | Expected failure produced GitHub notification |
 | Final normal health check | [Run #5](https://github.com/visiondani8-crypto/azure-website-project-03/actions/runs/41209550079) | Success, HTTP 200, 0.101846 seconds, expected content present |
+| First scheduled health check | [Run #6](https://github.com/visiondani8-crypto/azure-website-project-03/actions/runs/41243815468) | Success, 31 Oct 2026 21:29 UTC |
+| Second scheduled health check | [Run #7](https://github.com/visiondani8-crypto/azure-website-project-03/actions/runs/41278837027) | Success, 1 Nov 2026 05:56 UTC |
+| Third scheduled health check | [Run #8](https://github.com/visiondani8-crypto/azure-website-project-03/actions/runs/41310403454) | Success, 1 Nov 2026 13:15 UTC |
 
 **Monitoring checks:** HTTP 200, successful network request, and homepage containing `Azure Cloud Portfolio`.
 
@@ -56,7 +59,7 @@ Azure Activity Log (management plane) -> policy denial analysis
 
 - **Website:** Azure Static Web Apps Free.
 - **Monitoring:** [`.github/workflows/website-health-check.yml`](../.github/workflows/website-health-check.yml).
-- **GitHub Actions:** `workflow_dispatch` for manual checks; cron `17 */6 * * *` for scheduled checks (UTC). A scheduled execution has **not yet been confirmed**.
+- **GitHub Actions:** `workflow_dispatch` for manual checks; cron `17 */6 * * *` for scheduled checks (UTC). **Verified:** three scheduled runs (#6, #7, #8) succeeded. GitHub Actions may delay scheduled execution, so start timestamps do not necessarily match the cron minute.
 - **Runner:** GitHub-hosted Ubuntu; job timeout set to three minutes.
 - **Network resilience:** curl with a five-second connection timeout, a 20-second maximum transfer duration, and two retries.
 - **Access:** Workflow uses `contents: read` only; no Azure account keys are required to check a public website.
@@ -81,22 +84,43 @@ Avoid publishing complete Azure Activity Log JSON or token/claim payloads. Those
 
 ## Screenshots and evidence
 
-**[Download the Project 4 screenshot evidence pack](../project04_evidence.zip)** — the ZIP archive was uploaded to this repository and contains the selected cropped/annotated monitoring screenshots. The GitHub Actions run links above also provide independently verifiable proof.
+The five cropped screenshots have been extracted from the [evidence ZIP](../project04_evidence.zip) and committed individually to [`evidence/project-04/`](../evidence/project-04/). All five can be reviewed here without downloading an archive. Workflow results are also independently verifiable using the links in the table above.
 
-The screenshots currently live inside the ZIP. To make them viewable directly in this case study, extract the archive, upload the individual PNGs to `evidence/project-04/`, and then add Markdown image links. Do not embed image links until the actual PNG paths exist.
+### 1. Azure Activity Log and policy denials
 
-Included evidence (avoid browser tabs and personal details when adding future screenshots):
-1. Azure Activity Log showing successful and denied management events.
-2. Terminal HTTP 200 and measured response time.
-3. Failed simulated health check showing `Homepage content check failed`.
-4. GitHub Inbox notification for the failed check.
-5. Successful final health check #5.
+Shows a successful Static Web App management operation and two policy-denied operations. These are **management-plane events**, not a measure of website availability.
+
+![Azure Activity Log showing successful deployment operation and two denied policy operations](../evidence/project-04/01_azure_activity_log.png)
+
+### 2. Manual HTTP check
+
+A single `curl` request returned HTTP 200 with a response time of approximately 296 ms. This is **one measurement**, not an uptime percentage.
+
+![Terminal output from a manual HTTP health check showing status 200 and response time](../evidence/project-04/02_manual_http_check.png)
+
+### 3. Controlled monitoring failure
+
+An intentionally missing content string made GitHub Actions health check #2 fail. The site itself was **not** intentionally taken offline.
+
+![GitHub Actions monitoring workflow with simulated content validation failure](../evidence/project-04/03_simulated_failure.png)
+
+### 4. GitHub notifications
+
+The GitHub Inbox received notifications for deliberately failing workflow runs. Email notifications were not tested.
+
+![GitHub Inbox recording failure notifications for the Azure website health checks](../evidence/project-04/04_github_failure_notifications.png)
+
+### 5. Normal monitoring restored
+
+After disabling the simulation, workflow #5 passed. Subsequently, **scheduled** runs #6–#8 also passed.
+
+![GitHub Actions website health check number 5 succeeding after controlled failure](../evidence/project-04/05_final_monitoring_success.png)
 
 ## Limitations and next improvements
 
 - A successful HTTP response at one moment is **not proof of high availability over time**.
 - One page and one expected string provide only basic content validation, not full application monitoring.
-- Scheduled checks may be delayed or disabled due to repository inactivity; confirm that a schedule actually executes.
+- Scheduled runs #6–#8 were confirmed successful; GitHub may still delay scheduled starts or disable schedules after prolonged repository inactivity.
 - GitHub Inbox notification is not guaranteed instant incident paging.
 - Monitoring currently does not persist response-time history, define an SLO, or perform checks from multiple locations.
 - Next improvements: alert thresholds/repeated-failure logic, response-time logging and a dedicated monitoring endpoint.
