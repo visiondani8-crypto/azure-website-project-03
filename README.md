@@ -63,7 +63,7 @@ The [actual uploaded Bicep source](projects/project-05-iac/main.bicep) defines a
 
 The template was compiled and deployed using Azure CLI, modified after Azure What-If identified potentially unintended network policy changes, and validated by a successful repeated deployment. The final What-If reported **three resources unchanged**. This is a configuration and deployment test, **not a live network traffic test**.
 
-The source and assessment are published, but **redacted screenshots and deletion of the temporary Azure lab resources remain pending**. Project 5 was built in a separate isolated Azure resource group `rg-project05-iac`.
+The source, case study and **eight cropped GitHub evidence screenshots** are published. [View the evidence](projects/project-05-iac/evidence/). **Deletion of the temporary Azure lab resources remains pending**. Project 5 was built in a separate isolated Azure resource group `rg-project05-iac`.
 
 ## Historical technical identifiers
 
