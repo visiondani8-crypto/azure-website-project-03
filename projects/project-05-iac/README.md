@@ -1,7 +1,7 @@
 # Project 5 - Azure Infrastructure as Code & Network Security Automation
 
 **Intermediate cloud engineering lab | Microsoft Azure | Bicep | Azure CLI**  
-**Status:** Network deployment, security update, repeat-deployment verification, source-code publication and eight evidence screenshots completed on 1 November 2026. **Lab resources have not yet been cleaned up.**
+**Status: COMPLETED — 1 November 2026.** Azure Bicep deployment, network-security update, no-change repeat-deployment validation, source publication, eight portfolio evidence screenshots, and isolated lab cleanup were completed and verified.
 
 ## Project overview
 
@@ -208,23 +208,24 @@ The final `main.bicep` file was present and compiled successfully using the Azur
 
 **Evidence limitations:** Screenshots show the CLI and What-If results, not a packet-level traffic test or continuous drift monitoring. The custom NSG rule was not tested against a live workload. No credentials, tokens or subscription identifiers are intentionally published in these cropped evidence screenshots.
 
-## Cleanup — pending
+## Safe resource cleanup — verified
 
-**Do not run cleanup until source code and required evidence have been preserved and the resource group contents verified.** The lab group is isolated, but deletion is destructive.
+**Result: Completed on 1 November 2026.** After publishing the Bicep source and eight screenshots to GitHub, I inspected the isolated Azure resource group `rg-project05-iac` and verified it contained only the disposable Project 5 resources. I validated its `Project=Project05` and `Environment=Lab` tags, then deleted it.
 
-```bash
-# List everything in the lab group before deciding to delete it
-az resource list --resource-group rg-project05-iac \
-  --query "[].{Name:name,Type:type}" -o table
+| Cleanup checkpoint | Observed Azure CLI result |
+| --- | --- |
+| Resource inventory | `nsg-p05-workloads` (NSG) and `vnet-p05-lab` (VNet), both in Central US; subnet contained within VNet |
+| Expected lab tags | Passed automated comparison |
+| Resource-name/type allowlist | `Resource verification: PASSED` |
+| Deletion action | `Deleting isolated Project 5 lab...` |
+| Command completion | `Project 5 cleanup: VERIFIED` |
+| Independent resource-group existence check | `az group exists --name rg-project05-iac` → **`false`** |
 
-# When ready, only if the group contains solely disposable lab resources:
-az group delete --name rg-project05-iac --yes
+The script required both matching tags and an exact top-level resource inventory before performing `az group delete --name rg-project05-iac --yes`. The post-delete existence check returned `false`, confirming the lab resource group was no longer present. **No other resource groups or existing cloud projects were targeted by this command.**
 
-# Check deletion has completed:
-az group exists --name rg-project05-iac
-```
+**Evidence:** The cleanup and independent `false` result were shown in the final interactive Cloud Shell screenshot. The previously published eight deployment/validation screenshots are available in [`evidence/`](evidence/); the separate cleanup screenshot has **not** been uploaded to GitHub.
 
-The last command should return `false` after complete deletion. **This README does not claim that cleanup has been performed.**
+To recreate this lab, use [the version-controlled `main.bicep` source](main.bicep) and follow the validated deployment steps above, checking your subscription policy and costs first.
 
 ## Skills demonstrated
 
@@ -236,4 +237,4 @@ Azure Bicep · Infrastructure as Code · Azure CLI · Azure Resource Manager · 
 
 ---
 
-*Status: core lab, GitHub source publication and screenshot evidence completed. Temporary Azure resource-group cleanup remains outstanding.*
+*Status: Project 5 completed, including verified deletion of the temporary Azure resource group. The deployable Bicep source and eight previously published evidence screenshots remain in GitHub.*
