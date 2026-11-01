@@ -1,8 +1,8 @@
-# Azure Cloud Engineering Portfolio - Projects 1 to 4
+# Azure Cloud Engineering Portfolio - Projects 1 to 5
 
-**Four completed personal cloud engineering labs · Microsoft Azure · GitHub Actions · Azure CLI · Microsoft Entra ID**
+**Five completed personal cloud engineering labs · Microsoft Azure · GitHub Actions · Azure CLI · Microsoft Entra ID**
 
-The Azure virtual machine lab originally numbered Project 2 was **skipped because of Azure VM quota restrictions**. The four completed projects are now numbered consecutively.
+The Azure virtual machine lab originally numbered Project 2 was **skipped because of Azure VM quota restrictions**. The completed projects are numbered consecutively, with the former Project 2 VM lab excluded.
 
 ## Completed projects
 
@@ -12,6 +12,7 @@ The Azure virtual machine lab originally numbered Project 2 was **skipped becaus
 | **Project 2 - Azure Static Website Deployment & CI/CD** | Azure Static Web Apps, GitHub Actions CI/CD, deployment troubleshooting | [Project 2 case study](docs/project-02-deployment.md) |
 | **Project 3 - Azure Website Monitoring & Incident Response** | Azure Activity Logs, automated monitoring, simulated incident response, GitHub notifications, scheduled health checks | [Project 3 case study](docs/project-03-monitoring.md) · [five screenshots](evidence/project-03/) |
 | **Project 4 - Azure IAM & RBAC Least-Privilege Security** | Azure CLI, Microsoft Entra service principals, scoped RBAC, allowed/denied ARM tests, credential and identity cleanup | [Project 4 assessment](docs/project-04-iam-rbac.md) |
+| **Project 5 - Azure Infrastructure as Code & Network Security Automation** | Azure Bicep, VNet and subnet, NSG security rules, What-If change safety, verified idempotency | **[Bicep source and case study](projects/project-05-iac/README.md)** · [actual `main.bicep`](projects/project-05-iac/main.bicep) |
 
 ## Architecture — Projects 2, 3 and 4
 
@@ -54,6 +55,16 @@ Project 4 lab: temporary Entra service principal
 
 [View all five Project 3 screenshots](docs/project-03-monitoring.md#screenshots-and-evidence) · [Read simulated incident report](docs/incident-report.md)
 
+## Project 5 — Infrastructure as Code lab
+
+**[Project 5 - Azure Infrastructure as Code & Network Security Automation](projects/project-05-iac/README.md)**
+
+The [actual uploaded Bicep source](projects/project-05-iac/main.bicep) defines a Central US Virtual Network (`10.50.0.0/16`), a subnet (`10.50.1.0/24`), an attached Network Security Group, and the priority-200 `DenyInternetOutbound` rule.
+
+The template was compiled and deployed using Azure CLI, modified after Azure What-If identified potentially unintended network policy changes, and validated by a successful repeated deployment. The final What-If reported **three resources unchanged**. This is a configuration and deployment test, **not a live network traffic test**.
+
+The source and assessment are published, but **redacted screenshots and deletion of the temporary Azure lab resources remain pending**. Project 5 was built in a separate isolated Azure resource group `rg-project05-iac`.
+
 ## Historical technical identifiers
 
 The GitHub repository, Azure resource and resource group retain names such as `azure-website-project-03`. These were created before renumbering and are **technical identifiers, not the current project number**. The website-deployment project is now **Project 2**. Keeping infrastructure identifiers unchanged avoids disrupting the existing Azure–GitHub deployment connection.
@@ -68,4 +79,4 @@ Do not publish Azure keys, tokens, secret values or account identifiers in scree
 
 ---
 
-**Projects:** [Project 1 - Azure Secure Blob Storage, Access Control & Data Recovery](https://github.com/visiondani8-crypto/azure-secure-blob-storage-lab) · [Project 2 - Azure Static Website Deployment & CI/CD](docs/project-02-deployment.md) · [Project 3 - Azure Website Monitoring & Incident Response](docs/project-03-monitoring.md) · [Project 4 - Azure IAM & RBAC Least-Privilege Security](docs/project-04-iam-rbac.md)
+**Projects:** [Project 1 - Azure Secure Blob Storage, Access Control & Data Recovery](https://github.com/visiondani8-crypto/azure-secure-blob-storage-lab) · [Project 2 - Azure Static Website Deployment & CI/CD](docs/project-02-deployment.md) · [Project 3 - Azure Website Monitoring & Incident Response](docs/project-03-monitoring.md) · [Project 4 - Azure IAM & RBAC Least-Privilege Security](docs/project-04-iam-rbac.md) · [Project 5 - Azure Infrastructure as Code & Network Security Automation](projects/project-05-iac/README.md)
